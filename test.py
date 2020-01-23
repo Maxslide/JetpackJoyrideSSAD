@@ -1,9 +1,6 @@
 from colorama import Fore,Back,Style
-import sys
 import numpy as np
-import os
-import time
-from input import *
+
 # os.system("mode con cols=200 lines=60")
 # np.set_printoptions(threshold=sys.maxsize)
 
@@ -37,14 +34,16 @@ class abc:
     def abc(self):
         print("bhaalu chutiya hai")
         
-obj1 = abc()
-obj1.abc()
-def change(obj):
-    obj.arr[0,0] = 1
-obj = test()
-obj.printarr()
-change(obj)
-obj.printarr()
-
+arr = np.array([[0,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,0,0,0,0,0,0,1,1,0],[0,1,1,0,0,0,0,0,0,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,1,0,0,0,1,1,0],[0,0,0,0,0,1,0,0,1,1,1,0],[0,0,0,0,0,1,1,1,1,1,1,0],[0,0,0,0,0,0,0,0,0,1,1,0],[0,0,0,0,0,0,0,0,0,1,1,0],[0,0,0,0,0,0,0,0,0,1,1,0]]) 
+print (arr)
+for i in arr:
+    for j in i:
+        if j == 1:
+            print(Fore.BLACK + Back.BLACK + str(j),end="")
+            print(Style.RESET_ALL,end="")
+        else:
+            print(Fore.RED + Back.RED + str(j), end="")
+            print(Style.RESET_ALL,end="")
+    print()
 
 # print(arr[:30, :50])

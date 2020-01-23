@@ -13,6 +13,8 @@ class Hero(Person):
         self.__name = 'Hulk'
         self.__x = 34
         self.__y = 18
+        self.__life = 30
+        self.__firstlife = 5
         # self.__gravity = 
     def heroground(self):
         person = np.array([[1,1,0,1,1],[1,0,0,0,1],[0,1,0,1,0],[1,0,1,0,1],[0,1,1,1,0]])
@@ -89,18 +91,48 @@ class Hero(Person):
         return self.__x
     def get_current_y(self):
         return self.__y
-        
-            
-
+    def get_life(self):
+        return self.__life
+    def updatelife(self,lif):
+        self.__life -= lif
+        if(self.__life <= 0):
+            return -1
+    def updatefirstLife(self):
+        self.__firstlife -= 1
+        if(self.__firstlife <= 0):
+            return -1
 
 class Enemy(Person):
     def __init__(self,x,y):
         self.__name = 'Thanos'
         self.__x = x
         self.__y = y
+        self.__life = 50
     def enemyarr(self):
-        enemy = np.array([[1,1,0,1,1],[1,0,0,0,1],[1,0,0,0,1],[0,0,1,0,0],[0,0,1,0,0]])
+        enemy = np.full((10,10),6)
         return enemy
-
-        
+    def life_loss(self):
+        if(self.__life > 0):
+            self.__life -= 1
+        else:
+            return -1
+        return 0
+    def allocateEnemy(self, obj,x):
+        if(x > 0):
+            obj.arr[0:39,181:192] = np.full((39,11),1)
+            
+            obj.arr[x : x + 10, self.__y : self.__y + 10] = Enemy.enemyarr(self) 
+        return 1
+    def gravity(self,obj,acc):
+        if(self.__x < 29):
+            unslice = np.full((10,10),1)
+            self.__x += 1
+            obj.arr[self.__x : self.__x + 10, self.__y : self.__y + 10] = Enemy.enemyarr(self)        
+        return 2
+    def updatelife(self,lif):
+        self.__life -= lif
+        if(self.__life <= 0):
+            return -1    
+    def get_life(self):
+        return self.__life
     
